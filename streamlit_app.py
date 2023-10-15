@@ -24,8 +24,11 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page.
 st.dataframe(fruits_to_show)
 
+fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
+streamlit.write('The user entered ', fruit_choice)
+
 st.header('Fruityvice Fruit Advice!')
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 
 # normalize json response
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
