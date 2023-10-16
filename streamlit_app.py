@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 import snowflake.connector
+from urllib.error import URLError
 
 st.title('My Parents New Healthy Diner.')
 
@@ -24,7 +25,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page.
 st.dataframe(fruits_to_show)
 
-fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
+fruit_choice = st.text_input('What fruit would you like information about?')
 st.write('The user entered ', fruit_choice)
 
 st.header('Fruityvice Fruit Advice!')
@@ -42,8 +43,10 @@ my_data_rows = my_cur.fetchall()
 st.header("Fruit list:")
 st.dataframe(my_data_rows)
 
-fruit_add = st.text_input('What fruit would you like to add?','Jackfruit')
-st.write('Thanks for adding: ', fruit_add)
 
-my_cur.execute("INSERT INTO fruit_load_list VALUES ('" + fruit_add + "');")
+try:
+  fruit_add = st.text_input('What fruit would you like to add?')
+  st.write('Thanks for adding: ', fruit_add)
+if fruit_add not in my_data_rows:
+  my_cur.execute("INSERT INTO fruit_load_list VALUES ('" + fruit_add + "');")
 
