@@ -45,5 +45,5 @@ st.dataframe(my_data_rows)
 fruit_add = st.text_input('What fruit would you like to add?','Jackfruit')
 st.write('Thanks for adding: ', fruit_add)
 
-my_cur.execute('INSERT INTO fruit_load_list VALUES (:fruit);',params = dict(fruit =fruit_add)
+my_cur.execute('INSERT INTO fruit_load_list VALUES (:fruit);',params = dict(fruit =fruit_add))
 
