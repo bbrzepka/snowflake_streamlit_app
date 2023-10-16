@@ -46,6 +46,6 @@ st.dataframe(my_data_rows)
 
 fruit_add = st.text_input('What fruit would you like to add?')
 st.write('Thanks for adding: ', fruit_add)
-if fruit_add not in my_data_rows:
+if fruit_add not in my_data_rows and fruit_add != '':
   my_cur.execute("INSERT INTO fruit_load_list VALUES ('" + fruit_add + "');")
 
