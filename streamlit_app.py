@@ -47,4 +47,4 @@ if streamlit.button('Get Fruit Load List'):
   
   try:
     fruit_add = st.text_input('What fruit would you like to add?')
-    st.write('Thanks for adding: ', fruit_add
+    st.write('Thanks for adding: ', fruit_add)
