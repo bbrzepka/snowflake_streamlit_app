@@ -37,10 +37,15 @@ fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 st.dataframe(fruityvice_normalized)
 
 # Add a button to load the fruit
-if st.button('Get Fruit Load List'):
-  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-  my_cur = my_cnx.cursor()
-  my_cur.execute("SELECT * FROM fruit_load_list")
-  my_data_rows = my_cur.fetchall()
-  st.header("Fruit list:")
-  st.dataframe(my_data_rows)
+my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+my_cur = my_cnx.cursor()
+my_cur.execute("SELECT * FROM fruit_load_list")
+my_data_rows = my_cur.fetchall()
+st.header("Fruit list:")
+st.dataframe(my_data_rows)
+
+fruit_add = st.text_input('What fruit would you like to add?')
+st.write('Thanks for adding: ', fruit_add)
+if fruit_add not in my_data_rows:
+  my_cur.execute("INSERT INTO fruit_load_list VALUES ('" + fruit_add + "');")
+
